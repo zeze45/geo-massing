@@ -1084,7 +1084,7 @@ def fetch_vworld_gis_building(lat: float, lng: float) -> Optional[Dict[str, Any]
     gis_key = cfg.get("GIS_BUILDING_API_KEY")
     vworld_key = cfg.get("VWORLD_API_KEY") or "DEB860E4-52DC-35F3-9E68-664B22DF3592"
     keys_to_try = [k for k in [gis_key, vworld_key] if k]
-    domains = ["192.168.219.106", "localhost", "127.0.0.1"]
+    domains = ["192.168.219.106", "localhost", "127.0.0.1","https://geo-massing.onrender.com"]
 
     click_pt = Point(lng, lat)
 
