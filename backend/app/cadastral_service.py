@@ -197,7 +197,7 @@ def search_address_location(query: str) -> Optional[Dict[str, Any]]:
         try:
             k_url = "https://dapi.kakao.com/v2/local/search/keyword.json"
             k_headers = {"Authorization": f"KakaoAK {kakao_key}"}
-            k_res = requests.get(k_url, headers=k_headers, params={"query": search_q, "size": 10}, timeout=3)
+            k_res = requests.get(k_url, headers=k_headers, params={"query": search_q, "size": 10}, timeout=6)
             if k_res.status_code == 200:
                 docs = k_res.json().get("documents", [])
                 if docs:
@@ -259,7 +259,7 @@ def search_address_location(query: str) -> Optional[Dict[str, Any]]:
             if category:
                 params["category"] = category
 
-            res = requests.get(url, params=params, timeout=4)
+            res = requests.get(url, params=params, timeout=6)
             if res.status_code == 200:
                 data = res.json()
                 resp = data.get("response", {})
@@ -313,7 +313,7 @@ def search_address_location(query: str) -> Optional[Dict[str, Any]]:
                                 base_query = re.sub(r'(\d+)-\d+', r'\1', cleaned_query)
                                 if base_query != cleaned_query:
                                     try:
-                                        base_res = requests.get(url, params={**params, "query": base_query}, timeout=3).json()
+                                        base_res = requests.get(url, params={**params, "query": base_query}, timeout=6).json()
                                         base_items = base_res.get("response", {}).get("result", {}).get("items", [])
                                         if base_items:
                                             b_item = base_items[0]
@@ -1110,7 +1110,7 @@ def fetch_vworld_gis_building(lat: float, lng: float) -> Optional[Dict[str, Any]
                     "size": "10"
                 }
                 try:
-                    r = requests.get(url, params=params, timeout=3.5).json()
+                    r = requests.get(url, params=params, timeout=6).json()
                     feats = r.get("response", {}).get("result", {}).get("featureCollection", {}).get("features", [])
                     if not feats:
                         continue
